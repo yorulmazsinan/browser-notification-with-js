@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bildirim Gönderme</title>
+</head>
+<body>
+    <h1>Bildirim Gönderme</h1>
+    <button onclick="askPermission()">Bildirim İzni İsteme</button>
+    <script>
+        function askPermission() {
+            if (!("Notification" in window)) {
+                alert("Tarayıcınız, bildirim göndermeyi desteklemiyor.");
+            } else if (Notification.permission !== "denied") {
+                Notification.requestPermission().then(function (permission) {
+                    if (permission === "granted") {
+                        sendNotify();
+                    }
+                });
+            }
+        }
+
+        function sendNotify() {
+            if (!("Notification" in window)) {
+                alert("Tarayıcınız, bildirim göndermeyi desteklemiyor.");
+            } else if (Notification.permission === "granted") {
+                var notify = new Notification("Başlık", {
+                    body: "Bildirim içeriği.",
+                    icon: "bildirim-ikonu.png"
+                });
+
+                notify.onclick = function() {
+                    window.open("https://sinanyorulmaz.com");
+                }
+            }
+        }
+    </script>
+</body>
+</html>
